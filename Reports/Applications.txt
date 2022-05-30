@@ -1,0 +1,4 @@
+id,name,installer byte size
+1,NodeJS,https://nodejs.org/dist/v16.15.0/node-v16.15.0-x64.msi,0
+2,HWmonitor,https://download.cpuid.com/hwmonitor/hwmonitor_1.46.exe,1443872
+4170449,Postman,https://dl.pstmn.io/download/latest/win64,147539872

@@ -1,6 +1,7 @@
 package Handlers;
 
 public interface ApplicationHandlerInterface {
+
     void displayAllAppsInfo();
     void displayAppInfoById(int id);
     void insertApp(String name, String url);

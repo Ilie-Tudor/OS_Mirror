@@ -1,23 +1,40 @@
 package Menu;
 
 
-import Handlers.ApplicationsHandler;
+import Application.BaseApplication;
+import Handlers.*;
+import Stores.DBStore;
+import Stores.FileStore;
+import Stores.MemoryStore;
+
 import java.util.Scanner;
 
 public class Menu {
 
-    int option = 0;
-    ApplicationsHandler handler;
 
-    public Menu(){
-        handler = new ApplicationsHandler();
+    private static Menu menu_instance = null;
+
+
+
+    FileStore fs = new FileStore();
+    DBStore dbs = new DBStore();
+    int option = 0;
+    ApplicationHandlerInterface handler;
+    MemoryStore ms = new MemoryStore();
+
+    static public Menu get_instance(){
+        if (menu_instance == null){
+            menu_instance = new Menu();
+        }
+        return menu_instance;
     }
-    public Menu(ApplicationsHandler aph){
-        handler = aph;
+
+    private Menu(){
+        ms = dbs.importAllIntoMemory();
+        dbs.exportAllFromMemory(ms);
+        handler = new ApplicationsHandler(ms);
     }
-    public void reinitialize(ApplicationsHandler aph){
-        handler = aph;
-    }
+
     public void displayOptions(){
         System.out.println("Select one of the options and hit enter");
         System.out.println("1. Display all available applications");
@@ -26,7 +43,8 @@ public class Menu {
         System.out.println("4. Update an application");
         System.out.println("5. Delete an application");
         System.out.println("6. Install an application");
-        System.out.println("7. Exit");
+        System.out.println("7. Save changes");
+        System.out.println("8. Exit");
         System.out.print("Your option: ");
     }
     public void selectOption(){
@@ -108,6 +126,10 @@ public class Menu {
                 }
                 break;
             case 7:
+                dbs.exportAllFromMemory(ms);
+                fs.exportAllFromMemory(ms);
+                break;
+            case 8:
                 System.exit(1);
                 break;
         }

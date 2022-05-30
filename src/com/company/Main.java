@@ -11,9 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Menu menu = new Menu();
-
-
+        Menu menu = Menu.get_instance();
 
         while (true){
             System.out.println("--------------------------------------");

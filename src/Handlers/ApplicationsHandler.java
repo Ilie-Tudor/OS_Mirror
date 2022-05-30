@@ -4,11 +4,14 @@ import Application.BaseApplication;
 
 import java.util.Vector;
 import Application.*;
+import Stores.MemoryStore;
 
 public class ApplicationsHandler implements ApplicationHandlerInterface {
 
-
-    Vector<BaseApplication> v = new Vector<>();
+    Vector<BaseApplication> v;
+    public ApplicationsHandler(MemoryStore ms){
+        v=ms.getApplications();
+    }
 
 
     @Override
@@ -50,7 +53,7 @@ public class ApplicationsHandler implements ApplicationHandlerInterface {
     @Override
     public void deleteApp(int id) {
         for(int i=0;i<v.size();i++){
-            if(v.get(i).getId()==id)
+            if(v.get(i).getId()==id && v.get(i) instanceof UserDefinedApplication)
                 v.remove(i);
         }
     }
